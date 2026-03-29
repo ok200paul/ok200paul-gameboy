@@ -1,5 +1,15 @@
 /* tslint:disable */
 /* eslint-disable */
+/**
+ * Build the full Game Boy UI inside the target element and wire up file
+ * input + play button. Call with a target element ID (e.g. `"environment"`).
+ * If `target_id` is `None`, defaults to `"game"`.
+ */
+export function mount(target_id?: string): void;
+/**
+ * Direct render with a ROM already in memory. Injects UI into target element
+ * and immediately starts emulation.
+ */
 export function render(rom: Uint8Array, target_id?: string): Promise<void>;
 export function start(): Promise<void>;
 
@@ -12,6 +22,7 @@ export interface InitOutput {
   readonly keydown: (a: number) => void;
   readonly keyup: (a: number) => void;
   readonly image: (a: number) => void;
+  readonly mount: (a: number, b: number, c: number) => void;
   readonly render: (a: number, b: number, c: number, d: number) => number;
   readonly start: () => void;
   readonly __wbindgen_export_0: (a: number) => void;
@@ -19,6 +30,7 @@ export interface InitOutput {
   readonly __wbindgen_export_2: (a: number, b: number) => number;
   readonly __wbindgen_export_3: (a: number, b: number, c: number, d: number) => number;
   readonly __wbindgen_export_4: WebAssembly.Table;
+  readonly __wbindgen_add_to_stack_pointer: (a: number) => number;
   readonly __wbindgen_export_5: (a: number, b: number, c: number) => void;
   readonly __wbindgen_export_6: (a: number, b: number) => void;
   readonly __wbindgen_export_7: (a: number, b: number, c: number) => void;
