@@ -30,10 +30,11 @@ record image-buffer {
 
 interface emulator {
     /// High-level entry point.
-    /// Accepts a ROM as raw bytes, initialises the emulator, attaches to
-    /// the DOM canvas with id "game", and starts the requestAnimationFrame
-    /// render loop.
-    render: func(rom: list<u8>) -> result<_, string>;
+    /// Accepts a ROM as raw bytes and an optional target element ID.
+    /// Injects the Game Boy HTML shell (canvas + controls legend) into the
+    /// target element, then starts the requestAnimationFrame render loop.
+    /// If target-id is not provided, defaults to "game".
+    render: func(rom: list<u8>, target-id: option<string>) -> result<_, string>;
 
     /// Called automatically by wasm-bindgen on module instantiation.
     /// Currently a no-op; reserved for future initialisation work.

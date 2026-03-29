@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-export function render(rom: Uint8Array): Promise<void>;
+export function render(rom: Uint8Array, target_id?: string): Promise<void>;
 export function start(): Promise<void>;
 
 export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembly.Module;
@@ -12,7 +12,7 @@ export interface InitOutput {
   readonly keydown: (a: number) => void;
   readonly keyup: (a: number) => void;
   readonly image: (a: number) => void;
-  readonly render: (a: number, b: number) => number;
+  readonly render: (a: number, b: number, c: number, d: number) => number;
   readonly start: () => void;
   readonly __wbindgen_export_0: (a: number) => void;
   readonly __wbindgen_export_1: (a: number, b: number, c: number) => void;

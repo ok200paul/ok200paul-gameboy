@@ -242,12 +242,15 @@ function passArray8ToWasm0(arg, malloc) {
 }
 /**
  * @param {Uint8Array} rom
+ * @param {string | undefined} [target_id]
  * @returns {Promise<void>}
  */
-export function render(rom) {
+export function render(rom, target_id) {
     const ptr0 = passArray8ToWasm0(rom, wasm.__wbindgen_export_2);
     const len0 = WASM_VECTOR_LEN;
-    const ret = wasm.render(ptr0, len0);
+    var ptr1 = isLikeNone(target_id) ? 0 : passStringToWasm0(target_id, wasm.__wbindgen_export_2, wasm.__wbindgen_export_3);
+    var len1 = WASM_VECTOR_LEN;
+    const ret = wasm.render(ptr0, len0, ptr1, len1);
     return takeObject(ret);
 }
 
@@ -258,19 +261,19 @@ export function start() {
     wasm.start();
 }
 
-function __wbg_adapter_16(arg0, arg1, arg2) {
+function __wbg_adapter_18(arg0, arg1, arg2) {
     wasm.__wbindgen_export_5(arg0, arg1, addHeapObject(arg2));
 }
 
-function __wbg_adapter_19(arg0, arg1) {
+function __wbg_adapter_21(arg0, arg1) {
     wasm.__wbindgen_export_6(arg0, arg1);
 }
 
-function __wbg_adapter_22(arg0, arg1, arg2) {
+function __wbg_adapter_24(arg0, arg1, arg2) {
     wasm.__wbindgen_export_7(arg0, arg1, addHeapObject(arg2));
 }
 
-function __wbg_adapter_65(arg0, arg1, arg2, arg3) {
+function __wbg_adapter_71(arg0, arg1, arg2, arg3) {
     wasm.__wbindgen_export_8(arg0, arg1, addHeapObject(arg2), addHeapObject(arg3));
 }
 
@@ -391,7 +394,7 @@ function __wbg_get_imports() {
                 const a = state0.a;
                 state0.a = 0;
                 try {
-                    return __wbg_adapter_65(a, state0.b, arg0, arg1);
+                    return __wbg_adapter_71(a, state0.b, arg0, arg1);
                 } finally {
                     state0.a = a;
                 }
@@ -432,8 +435,14 @@ function __wbg_get_imports() {
         const ret = Promise.resolve(getObject(arg0));
         return addHeapObject(ret);
     };
+    imports.wbg.__wbg_setAttribute_148e0e65e20e5f27 = function() { return handleError(function (arg0, arg1, arg2, arg3, arg4) {
+        getObject(arg0).setAttribute(getStringFromWasm0(arg1, arg2), getStringFromWasm0(arg3, arg4));
+    }, arguments) };
     imports.wbg.__wbg_setheight_16d76e7fa9d506ea = function(arg0, arg1) {
         getObject(arg0).height = arg1 >>> 0;
+    };
+    imports.wbg.__wbg_setinnerHTML_2d75307ba8832258 = function(arg0, arg1, arg2) {
+        getObject(arg0).innerHTML = getStringFromWasm0(arg1, arg2);
     };
     imports.wbg.__wbg_setwidth_c588fe07a7982aca = function(arg0, arg1) {
         getObject(arg0).width = arg1 >>> 0;
@@ -474,16 +483,16 @@ function __wbg_get_imports() {
         const ret = false;
         return ret;
     };
-    imports.wbg.__wbindgen_closure_wrapper264 = function(arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 67, __wbg_adapter_22);
+    imports.wbg.__wbindgen_closure_wrapper269 = function(arg0, arg1, arg2) {
+        const ret = makeMutClosure(arg0, arg1, 68, __wbg_adapter_24);
         return addHeapObject(ret);
     };
-    imports.wbg.__wbindgen_closure_wrapper43 = function(arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 4, __wbg_adapter_16);
+    imports.wbg.__wbindgen_closure_wrapper46 = function(arg0, arg1, arg2) {
+        const ret = makeMutClosure(arg0, arg1, 4, __wbg_adapter_18);
         return addHeapObject(ret);
     };
-    imports.wbg.__wbindgen_closure_wrapper45 = function(arg0, arg1, arg2) {
-        const ret = makeMutClosure(arg0, arg1, 4, __wbg_adapter_19);
+    imports.wbg.__wbindgen_closure_wrapper48 = function(arg0, arg1, arg2) {
+        const ret = makeMutClosure(arg0, arg1, 4, __wbg_adapter_21);
         return addHeapObject(ret);
     };
     imports.wbg.__wbindgen_debug_string = function(arg0, arg1) {
@@ -507,6 +516,10 @@ function __wbg_get_imports() {
     };
     imports.wbg.__wbindgen_object_drop_ref = function(arg0) {
         takeObject(arg0);
+    };
+    imports.wbg.__wbindgen_string_new = function(arg0, arg1) {
+        const ret = getStringFromWasm0(arg0, arg1);
+        return addHeapObject(ret);
     };
     imports.wbg.__wbindgen_throw = function(arg0, arg1) {
         throw new Error(getStringFromWasm0(arg0, arg1));
