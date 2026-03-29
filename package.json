@@ -1,0 +1,24 @@
+{
+  "name": "gameboy",
+  "type": "module",
+  "collaborators": [
+    "Raphael Amorim <rapha850@gmail.com>"
+  ],
+  "description": "Gameboy emulator written in Rust and WebAssembly",
+  "version": "0.1.5",
+  "license": "MPL-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/raphamorim/gameboy"
+  },
+  "files": [
+    "gameboy_bg.wasm",
+    "gameboy.js",
+    "gameboy.d.ts"
+  ],
+  "main": "gameboy.js",
+  "types": "gameboy.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}
