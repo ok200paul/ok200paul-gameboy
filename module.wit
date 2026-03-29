@@ -1,66 +1,23 @@
-/// Game Boy emulator – WebAssembly interface
-///
-/// This package exposes a browser-oriented Game Boy emulator.
-/// Load a ROM with `render` to start emulation on a <canvas id="game"> element,
-/// or use the lower-level functions (`load`, `frame`, `keydown`, `keyup`, `image`)
-/// for manual control.
+package gameboy:emulator;
 
-package gameboy:emulator@0.1.5;
+interface api {
+  start: func();
 
-/// Key identifiers for the Game Boy keypad.
-/// Values map to the C-repr enum order (0–7).
-enum keypad-key {
-    right,
-    left,
-    up,
-    down,
-    a,
-    b,
-    select,
-    start,
+  /// Activate the emulator with a RunLicense license. Verifies the license,
+  /// then mounts the full Game Boy UI into the target element.
+  /// If `target_id` is `None`, defaults to `"game"`.
+  activate: func(license-json: string, target-id: option<string>);
+
+  /// Build the full Game Boy UI inside the target element and wire up file
+  /// input + play button. No license check — use `activate` for licensed access.
+  /// If `target_id` is `None`, defaults to `"game"`.
+  mount: func(target-id: option<string>) -> result<(), string>;
+
+  /// Direct render with a ROM already in memory. Injects UI into target element
+  /// and immediately starts emulation.
+  render: func(rom: list<u8>, target-id: option<string>) -> result<(), string>;
 }
 
-/// Raw pixel buffer returned by `image`.
-record image-buffer {
-    /// Length of the data slice in bytes (160 × 144 × 4 RGBA).
-    len: s32,
-    /// Pointer to the pixel data in linear memory.
-    data: u32,
-}
-
-interface emulator {
-    /// Build the full Game Boy UI (file picker, Game Boy shell, controls)
-    /// inside the target element and wire up event listeners.
-    /// If target-id is not provided, defaults to "game".
-    /// The user selects a ROM via the injected file input.
-    mount: func(target-id: option<string>) -> result<_, string>;
-
-    /// Inject UI into target element and immediately start emulation
-    /// with a ROM already in memory. Hides the file picker.
-    /// If target-id is not provided, defaults to "game".
-    render: func(rom: list<u8>, target-id: option<string>) -> result<_, string>;
-
-    /// Called automatically by wasm-bindgen on module instantiation.
-    /// Currently a no-op; reserved for future initialisation work.
-    start: func() -> result<_, string>;
-
-    /// Load a ROM into the global emulator instance (lower-level API).
-    /// The ROM bytes are copied into emulator memory.
-    load: func(bytes: list<u8>);
-
-    /// Advance the emulator by one full frame (~70224 T-cycles).
-    frame: func();
-
-    /// Register a key-down event.
-    keydown: func(key: keypad-key);
-
-    /// Register a key-up event.
-    keyup: func(key: keypad-key);
-
-    /// Return the current screen framebuffer (160×144 RGBA).
-    image: func() -> image-buffer;
-}
-
-world gameboy-emulator {
-    export emulator;
+world module {
+  export api;
 }

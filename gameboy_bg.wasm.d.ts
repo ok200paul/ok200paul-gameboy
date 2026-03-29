@@ -1,11 +1,12 @@
 /* tslint:disable */
 /* eslint-disable */
 export const memory: WebAssembly.Memory;
-export const load: (a: number, b: number) => void;
+export const activate: (a: number, b: number, c: number, d: number) => void;
 export const frame: () => void;
+export const image: (a: number) => void;
 export const keydown: (a: number) => void;
 export const keyup: (a: number) => void;
-export const image: (a: number) => void;
+export const load: (a: number, b: number) => void;
 export const mount: (a: number, b: number, c: number) => void;
 export const render: (a: number, b: number, c: number, d: number) => number;
 export const start: () => void;

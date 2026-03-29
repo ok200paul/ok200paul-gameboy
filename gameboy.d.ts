@@ -1,27 +1,34 @@
 /* tslint:disable */
 /* eslint-disable */
-/**
- * Build the full Game Boy UI inside the target element and wire up file
- * input + play button. Call with a target element ID (e.g. `"environment"`).
- * If `target_id` is `None`, defaults to `"game"`.
- */
-export function mount(target_id?: string): void;
+export function start(): Promise<void>;
 /**
  * Direct render with a ROM already in memory. Injects UI into target element
  * and immediately starts emulation.
  */
 export function render(rom: Uint8Array, target_id?: string): Promise<void>;
-export function start(): Promise<void>;
+/**
+ * Activate the emulator with a RunLicense license. Verifies the license,
+ * then mounts the full Game Boy UI into the target element.
+ * If `target_id` is `None`, defaults to `"game"`.
+ */
+export function activate(license_json: string, target_id?: string): void;
+/**
+ * Build the full Game Boy UI inside the target element and wire up file
+ * input + play button. No license check — use `activate` for licensed access.
+ * If `target_id` is `None`, defaults to `"game"`.
+ */
+export function mount(target_id?: string): void;
 
 export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembly.Module;
 
 export interface InitOutput {
   readonly memory: WebAssembly.Memory;
-  readonly load: (a: number, b: number) => void;
+  readonly activate: (a: number, b: number, c: number, d: number) => void;
   readonly frame: () => void;
+  readonly image: (a: number) => void;
   readonly keydown: (a: number) => void;
   readonly keyup: (a: number) => void;
-  readonly image: (a: number) => void;
+  readonly load: (a: number, b: number) => void;
   readonly mount: (a: number, b: number, c: number) => void;
   readonly render: (a: number, b: number, c: number, d: number) => number;
   readonly start: () => void;
