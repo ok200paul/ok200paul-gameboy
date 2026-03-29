@@ -2,14 +2,15 @@
   "name": "gameboy",
   "type": "module",
   "collaborators": [
-    "Raphael Amorim <rapha850@gmail.com>"
+    "Raphael Amorim <rapha850@gmail.com>",
+    "Paul Grimes <paul@ok200.net>"
   ],
   "description": "Gameboy emulator written in Rust and WebAssembly",
-  "version": "0.1.5",
+  "version": "0.1.0",
   "license": "MPL-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/raphamorim/gameboy"
+    "url": "https://github.com/ok200paul/ok200paul-gameboy"
   },
   "files": [
     "gameboy_bg.wasm",
